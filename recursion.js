@@ -43,20 +43,38 @@ function isPalindrome(str) {
 
 /** revString: return a copy of a string, but in reverse. */
 
-function revString(str) {
+function revString(str, copy="", i=str.length-1) {
+  if (i < 0) return copy;
 
+  copy += str[i];
+  return revString(str, copy, i-1);
 }
 
 /** findIndex: return the index of val in arr (or -1 if val is not present). */
 
-function findIndex(arr, val) {
+function findIndex(arr, val, i=0) {
+  if (i === arr.length) return -1;
 
+  if (arr[i] === val) return i;
+
+  return findIndex(arr, val, i+1);
 }
 
 /** gatherStrings: given an object, return an array of all of the string values. */
 
-function gatherStrings(obj) {
+function gatherStrings(obj, out=[]) {
 
+  for (let key in obj) {
+    debugger;
+    if (typeof obj[key] === "string") {
+      out.push(obj[key]);
+    }
+    else if (typeof obj[key] === "object") {
+      gatherStrings(obj[key],out);
+    }
+  }
+
+  return out;
 }
 
 // FURTHER STUDY
